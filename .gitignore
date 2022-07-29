@@ -2,7 +2,21 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+.venv
+*.egg-info
+packages/
 
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Don't add the API key
+key_details.json
+set_key.sh
 # C extensions
 *.so
 

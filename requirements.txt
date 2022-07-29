@@ -1,0 +1,5 @@
+-e .
+aws-cdk-lib==2.32.1
+constructs>=10.0.0
+aws-cdk.aws_glue_alpha
+aws-cdk.aws-s3-deployment
