@@ -6,7 +6,7 @@ from awsglue.context import GlueContext
 from awsglue.job import Job
 from awsglue import DynamicFrame
 
-args = getResolvedOptions(sys.argv, ['JOB_NAME','table','parentProject','connectionName','databucket','filter'])
+args = getResolvedOptions(sys.argv, ['JOB_NAME','table','parentProject','connectionName','databucket','gluedatabase','filter'])
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
@@ -14,6 +14,7 @@ job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 table=str(args['table'])
 databucket= str(args['databucket'])
+gluedatabase = str(args['gluedatabase'])
 
 def sparkSqlQuery(glueContext, query, mapping, transformation_ctx) -> DynamicFrame:
     for alias, frame in mapping.items():
@@ -29,6 +30,7 @@ GoogleBigQueryConnector0242forAWSGlue30_node1 = (
     glueContext.create_dynamic_frame.from_options(
         connection_type="marketplace.spark",
         connection_options={
+            "viewsEnabled": "true",
             "table": args["table"],
             "parentProject": args["parentProject"],
             "connectionName": args["connectionName"],
@@ -47,7 +49,7 @@ select *,sha2(country_code,256) as country_code_hashed from youtubedata
 SQL_node1659192237456 = sparkSqlQuery(
     glueContext,
     query=SqlQuery0,
-    mapping={"youtubedata": GoogleBigQueryConnector0242forAWSGlue30_node1},
+    mapping={gluedatabase: GoogleBigQueryConnector0242forAWSGlue30_node1},
     transformation_ctx="SQL_node1659192237456",
 )
 
@@ -87,7 +89,7 @@ S3bucket_node3 = glueContext.getSink(
     transformation_ctx="S3bucket_node3",
 )
 S3bucket_node3.setCatalogInfo(
-    catalogDatabase="youtube", catalogTableName=table
+    catalogDatabase=gluedatabase, catalogTableName=table
 )
 S3bucket_node3.setFormat("glueparquet")
 S3bucket_node3.writeFrame(SelectFields_node1659197478137)

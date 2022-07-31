@@ -6,7 +6,7 @@ with open("README.md") as fp:
 
 
 setuptools.setup(
-    name="sqs",
+    name="bigquery-glue",
     version="0.0.1",
 
     description="BigQuery Glue Job",
