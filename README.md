@@ -66,7 +66,7 @@ ORDER BY 2 DESC
 ```
 
 ### Count of users, new users, and sessions
-```
+``` 
 SELECT count(DISTINCT user_pseudo_id) as users,
 countif(event_name="first_visit") as new_users,
 countif(event_name="session_start") as sessions,
@@ -75,7 +75,7 @@ FROM `tfc-test-356921.youtube.events_*`
 
 
 ### User Funnel - Path to Conversion
-```
+``` 
 
 WITH base AS (
  SELECT 
@@ -93,14 +93,14 @@ count(*) as events
 FROM previousPagePathQ WHERE pagePath like "%shop.%" GROUP BY 1,2 ORDER BY 3 DESC
 
 
-```
+``` 
 
 ### Average Time between users first and N-th visit.  
 
 Using attributed that describe first interactions (traffic source, timestamp)
 
 
-```
+``` 
 
 SELECT 
 user_pseudo_id,sess_number, avg(daysSinceFirstInteraction), count(*) FROM (
@@ -117,7 +117,7 @@ GROUP BY 1,2
 GROUP BY 1,2
 ORDER BY 1
 
-```
+``` 
 
 
 ### Purchasers
