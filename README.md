@@ -3,7 +3,7 @@
 
 ## YouTube Data
 
-'''
+```
 {
     "data_bucket_name": "bigquery-youtube",
     "table": "tfc-test-356921.youtube.p_channel_traffic_source_a2_youtube",
@@ -14,11 +14,11 @@
     "schedule": "0/10 * * * ? *",
     "gluedatabase": "youtube"
 }
-'''
+```
 
 ## Google Analytics 4 Data
 
-'''
+```
 {
     "jobname": "bigquery-analytics",
     "data_bucket_name": "bmaguir-connector-data-bigquery",
@@ -30,19 +30,19 @@
     "schedule": "0/10 * * * ? *",
     "gluedatabase": "youtube"
 }
-'''
+```
 
 
 ## Queries
 
 
-'''
+```
 SELECT device.category, count(*) as events 
 FROM `tfc-test-356921.youtube.events_*`
 GROUP BY 1
-'''
+```
 
-'''
+```
 SELECT DISTINCT user_pseudo_id,
 value.string_value
 
@@ -51,10 +51,10 @@ UNNEST(user_properties) as up
 where 
 up.key is null
 
-'''
+```
 
 ### Count of page views 
-'''
+```
 SELECT
 value.string_value as page_name,count(*) as event_count
 FROM `tfc-test-356921.youtube.events_*`,
@@ -63,10 +63,10 @@ where
 ep.key ="page_title" AND event_name = "page_view"
 GROUP BY 1
 ORDER BY 2 DESC
-'''
+```
 
 ### Count of users, new users, and sessions
-'''
+```
 SELECT count(DISTINCT user_pseudo_id) as users,
 countif(event_name="first_visit") as new_users,
 countif(event_name="session_start") as sessions,
@@ -75,7 +75,7 @@ FROM `tfc-test-356921.youtube.events_*`
 
 
 ### User Funnel - Path to Conversion
-'''
+```
 
 WITH base AS (
  SELECT 
@@ -93,14 +93,14 @@ count(*) as events
 FROM previousPagePathQ WHERE pagePath like "%shop.%" GROUP BY 1,2 ORDER BY 3 DESC
 
 
-'''
+```
 
 ### Average Time between users first and N-th visit.  
 
 Using attributed that describe first interactions (traffic source, timestamp)
 
 
-'''
+```
 
 SELECT 
 user_pseudo_id,sess_number, avg(daysSinceFirstInteraction), count(*) FROM (
@@ -117,11 +117,11 @@ GROUP BY 1,2
 GROUP BY 1,2
 ORDER BY 1
 
-'''
+```
 
 
 ### Purchasers
-''' 
+``` 
 /**
  * Computes the audience of purchasers.
  *
@@ -142,7 +142,7 @@ WHERE
   
 ### N-day active users
 
-''' 
+``` 
 /**
  * Builds an audience of N-Day Active Users.
  *
@@ -164,12 +164,12 @@ WHERE
       UNIX_MICROS(TIMESTAMP_SUB(CURRENT_TIMESTAMP, INTERVAL 20 DAY))
   -- PLEASE REPLACE WITH YOUR DESIRED DATE RANGE.
   AND _TABLE_SUFFIX BETWEEN '20180521' AND '20240131';
-''' 
+``` 
 
   
 ### N-day inactive users
 
-'''
+```
 /**
  * Builds an audience of N-Day Inactive Users.
  *
@@ -219,11 +219,11 @@ LEFT JOIN
   ON MDaysUsers.user_id = NDaysUsers.user_id
 WHERE
   NDaysUsers.user_id IS NULL;
-''' 
+``` 
 
  
 ### Frequently active users
-''' 
+``` 
 /**
  * Builds an audience of Frequently Active Users.
  *
@@ -257,11 +257,11 @@ FROM
     -- Having engaged in at least N = 4 days.
     HAVING COUNT(event_date) >= 4
   );
-''' 
+``` 
 
  
 ### Highly active users
-''' 
+``` 
 
 /**
  * Builds an audience of Highly Active Users.
@@ -295,12 +295,12 @@ FROM
       -- Having engaged for more than N = 0.1 minutes.
       SUM(event_params.value.int_value) > 0.1 * 60 * 1000000
   );
-''' 
+``` 
 
 
 
 ### Acquired users
-''' 
+``` 
 /**
  * Builds an audience of Acquired Users.
  *
@@ -318,12 +318,12 @@ WHERE
   AND traffic_source.name = 'VTA-Test-Android'
   -- PLEASE REPLACE YOUR DESIRED DATE RANGE.
   AND _TABLE_SUFFIX BETWEEN '20180521' AND '20240131';
-'''
+```
 
 
 
 ### Cohorts with filters
-''' 
+``` 
 /**
  * Builds an audience composed of users acquired last week
  * through Google campaigns, i.e., cohorts with filters.
@@ -346,14 +346,14 @@ WHERE
   AND traffic_source.source = 'google'
 
   AND _TABLE_SUFFIX BETWEEN '20180501' AND '20240131';
-  '''
+  ```
 
 ### Average amount of money spent per purchase session by user
 The following query shows the average amount of money spent per session by each user. This takes into account only the sessions where the user made a purchase.
 
 https://developers.google.com/analytics/bigquery/advanced-queries#user_pseudo_id
 
-'''
+```
 
 SELECT
   user_pseudo_id,
@@ -376,7 +376,7 @@ WHERE
 GROUP BY
   1;
 
-  '''
+  ```
 
 ### Latest Session Id and Session Number for users
 
@@ -386,7 +386,7 @@ The following query provides the list of the latest ga_session_id and ga_session
 -- Replace timezone. List at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 -- Replace list of user_pseudo_id's with ones you want to query.
 
-'''
+```
 DECLARE REPORTING_TIMEZONE STRING DEFAULT 'America/New_York';
 
 
@@ -420,12 +420,12 @@ WHERE
     AND GetDateSuffix(0, REPORTING_TIMEZONE)
 WINDOW UserWindow AS (PARTITION BY user_pseudo_id ORDER BY event_timestamp DESC);
 
-'''
+```
 
 ### Products purchased by customers who purchased a certain product
 The following query shows what other products were purchased by customers who purchased a specific product. This example does not assume that the products were purchased in the same order.
 
-'''
+```
 -- Example: Products purchased by customers who purchased a specific product.
 --
 -- `Params` is used to hold the value of the selected product and is referenced
@@ -473,4 +473,4 @@ WHERE
 GROUP BY 1
 ORDER BY item_quantity DESC;
 
-'''
+```
