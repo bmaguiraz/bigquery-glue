@@ -73,10 +73,11 @@ countif(event_name="session_start") as sessions,
 countif(event_name="fpage_view") as pageviews,
 FROM `tfc-test-356921.youtube.events_*`
 
-
-### User Funnel - Path to Conversion
 ``` 
 
+### User Funnel - Path to Conversion
+
+``` 
 WITH base AS (
  SELECT 
     user_pseudo_id,
@@ -98,7 +99,6 @@ FROM previousPagePathQ WHERE pagePath like "%shop.%" GROUP BY 1,2 ORDER BY 3 DES
 ### Average Time between users first and N-th visit.  
 
 Using attributed that describe first interactions (traffic source, timestamp)
-
 
 ``` 
 
