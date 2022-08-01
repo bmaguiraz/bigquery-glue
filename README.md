@@ -346,7 +346,7 @@ WHERE
   AND traffic_source.source = 'google'
 
   AND _TABLE_SUFFIX BETWEEN '20180501' AND '20240131';
-  ```
+```
 
 ### Average amount of money spent per purchase session by user
 The following query shows the average amount of money spent per session by each user. This takes into account only the sessions where the user made a purchase.
@@ -376,7 +376,7 @@ WHERE
 GROUP BY
   1;
 
-  ```
+```
 
 ### Latest Session Id and Session Number for users
 
