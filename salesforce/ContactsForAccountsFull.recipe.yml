@@ -1,0 +1,124 @@
+- plugin: snowfakery.standard_plugins.datasets.Dataset
+- object: Contact
+  fields:
+    __accounts:
+      Dataset.shuffle:
+        dataset: ../data/salesforce/Account.csv
+    LastName:
+      fake: first_name
+    FirstName:
+      fake: last_name
+    Salutation:
+      random_choice:
+        Mr.: 40%
+        Ms.: 40%
+        Dr.: 10%
+        Prof.: 10%
+    OtherStreet:
+      fake: street_address
+    OtherCity:
+      fake: city
+    OtherState:
+      fake: state
+    OtherPostalCode:
+      fake: postalcode
+    OtherCountry:
+      fake: country
+    OtherLatitude:
+      fake: latitude
+    OtherLongitude:
+      fake: longitude
+    OtherGeocodeAccuracy:
+      random_choice:
+        - Address
+        - NearAddress
+        - Block
+        - Street
+        - ExtendedZip
+        - Zip
+        - Neighborhood
+        - City
+        - County
+        - State
+        - Unknown
+    MailingStreet:
+      fake: street_address
+    MailingCity:
+      fake: city
+    MailingState:
+      fake: state
+    MailingPostalCode:
+      fake: postalcode
+    MailingCountry:
+      fake: country
+    MailingLatitude:
+      fake: latitude
+    MailingLongitude:
+      fake: longitude
+    MailingGeocodeAccuracy:
+      random_choice:
+        - Address
+        - NearAddress
+        - Block
+        - Street
+        - ExtendedZip
+        - Zip
+        - Neighborhood
+        - City
+        - County
+        - State
+        - Unknown
+    Phone:
+      fake: phone_number
+    Fax:
+      fake: phone_number
+    MobilePhone:
+      fake: phone_number
+    HomePhone:
+      fake: phone_number
+    OtherPhone:
+      fake: phone_number
+    AssistantPhone:
+      fake: phone_number
+    # ReportsToId:
+    #   reference: BossContact # you need to have defined this Contact elsewhere
+    Email:
+      fake: email
+    Title:
+      fake.text:
+        max_nb_chars: 100
+    Department:
+      fake.text:
+        max_nb_chars: 80
+    AssistantName:
+      fake: name
+    LeadSource:
+      random_choice:
+        - Web
+        - Phone Inquiry
+        - Partner Referral
+        - Purchased List
+        - Other
+    Birthdate:
+      date_between:
+        start_date: -1y
+        end_date: today
+    Description:
+      fake.text:
+        max_nb_chars: 100
+    EmailBouncedReason:
+      fake.text:
+        max_nb_chars: 100
+    EmailBouncedDate: ${{fake.date}}T${{fake.time}}Z
+    CleanStatus:
+      random_choice:
+        - Matched
+        - Different
+        - Acknowledged
+        - NotFound
+        - Inactive
+        - Pending
+        # - SelectMatch  # causes problems
+        - Skipped
+    AccountId: ${{__accounts.Id}}
+    
