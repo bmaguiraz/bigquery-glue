@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Corner - Order</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0PJ102QGW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  var userid = Math.floor(Math.random() * 101);
+  gtag('config', 'G-Y0PJ102QGW', {
+'user_id': userid 
+});
+</script>
+  </head>
+  <body>
+    <!-- header section start -->
+    <header>
+      <div class="header-1">
+        <a href="#" class="logo"><i class="fas fa-utensils"></i>Food</a>
+        <h3 class="call">
+          <i class="fas fa-phone"></i>call now : +123-456-789
+        </h3>
+      </div>
+
+      <div class="header-2">
+        <div id="menu" class="fas fa-hamburger"></div>
+        <nav class="navbar">
+          <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="dishes.html">Dishes</a></li>
+            <li><a href="chef.html">Chef</a></li>
+            <li><a href="speciality.html">Specialiity</a></li>
+            <li><a href="order.html">Order</a></li>
+          </ul>
+        </nav>
+        <div class="share">
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-pinterest"></a>
+          <a href="#" class="fab fa-instagram"></a>
+          <a href="#" class="fab fa-twitter"></a>
+        </div>
+      </div>
+    </header>
+    <!-- header section end -->
+    <!-- order section starts  -->
+
+    <section class="order" id="order">
+      <h1 class="heading"><span> order now </span></h1>
+
+      <form action="">
+        <div class="inputBox">
+          <input type="text" placeholder="full name" />
+          <input type="text" placeholder="food name" />
+        </div>
+
+        <div class="inputBox">
+          <input type="number" placeholder="phone number" />
+          <select name="" id="">
+            <option value="food type" disabled selected>food type</option>
+            <option value="veg">veg</option>
+            <option value="non-veg">non-veg</option>
+          </select>
+        </div>
+
+        <div class="inputBox">
+          <textarea cols="30" rows="10" placeholder="full address"></textarea>
+          <iframe
+            id="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.3448351768534!2d72.8194324144256!3d19.136377055045728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7ddc82073d7%3A0x3aa5a7ce31b7b9dd!2sRestaurants!5e0!3m2!1sen!2sin!4v1612270030599!5m2!1sen!2sin"
+            frameborder="0"
+            style="border: 0"
+            allowfullscreen=""
+            aria-hidden="false"
+            tabindex="0"
+          ></iframe>
+        </div>
+
+        <input type="submit" value="order now" class="btn" />
+      </form>
+    </section>
+    <!-- order section ends -->
+    <!-- footer section starts -->
+    <section class="footer">
+      <img src="images/shape-top.png" alt="" />
+      <div class="box-container">
+        <div class="box">
+          <h3 class="heading">
+            <span>why choose us?</span>
+          </h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
+            mollitia blanditiis explicabo repellendus ea tenetur numquam.
+            Dignissimos in recusandae est.
+          </p>
+        </div>
+
+        <div class="box">
+          <h3 class="heading">
+            <span>locations</span>
+          </h3>
+          <a href="#">india</a>
+          <a href="#">USA</a>
+          <a href="#">france</a>
+          <a href="#">russia</a>
+        </div>
+        <div class="box">
+          <h3 class="heading">
+            <span>quick links</span>
+          </h3>
+          <a href="index.html">home</a>
+          <a href="about.html">about</a>
+          <a href="dishes">dishes</a>
+          <a href="chef">chef</a>
+          <a href="speciality">speciality</a>
+          <a href="contact">contact</a>
+        </div>
+
+        <div class="box">
+          <h3 class="heading">
+            <span>contact us</span>
+          </h3>
+          <p><i class="fas fa-map-marker-alt"></i>mumbai, india 400103</p>
+          <p><i class="fas fa-envelope"></i>xyz@gmail.com</p>
+          <p><i class="fas fa-globe"></i>www.yourwebsite.com</p>
+        </div>
+      </div>
+
+      <h1 class="credit">
+        created by <span>miss web designer</span> | all rights reserved !
+      </h1>
+    </section>
+
+    <!-- footer section ends -->
+    <!-- jquery link -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
