@@ -475,3 +475,156 @@ GROUP BY 1
 ORDER BY item_quantity DESC;
 
 ```
+
+
+### Athena Queries
+
+
+
+SELECT
+  COUNT(DISTINCT user_pseudo_id) AS purchasers_count
+FROM
+  -- PLEASE REPLACE WITH YOUR TABLE NAME.
+  "youtube"."tfc_test_356921_youtube_events_20210131" 
+WHERE
+  event_name IN ('in_app_purchase', 'purchase')
+
+
+
+  SELECT
+  COUNT(DISTINCT user_id) AS users_acquired_through_google_count
+FROM
+   "youtube"."tfc_test_356921_youtube_events_20210131" 
+WHERE
+  event_name = 'first_open'
+  AND event_timestamp >
+      UNIX_MICROS(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 14 DAY))
+  AND event_timestamp <
+      UNIX_MICROS(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY))
+  AND traffic_source.source = 'google'
+
+
+
+
+WITH
+  Params AS (
+    -- Replace with selected item_name or item_id.
+    SELECT 'Google Navy Speckled Tee' AS selected_product
+  ),
+  PurchaseEvents AS (
+    SELECT
+      user_pseudo_id,
+      items
+    FROM
+      -- Replace table name.
+   "youtube"."tfc_test_356921_youtube_events_20210131" 
+
+      AND event_name = 'purchase'
+  ),
+  ProductABuyers AS (
+    SELECT DISTINCT
+      user_pseudo_id
+    FROM
+      Params,
+      PurchaseEvents,
+      UNNEST(items) AS items
+    WHERE
+      -- item.item_id can be used instead of items.item_name.
+      items.item_name = selected_product
+  )
+SELECT
+  items.item_name AS item_name,
+  SUM(items.quantity) AS item_quantity
+FROM
+  Params,
+  PurchaseEvents,
+  UNNEST(items) AS items
+WHERE
+  user_pseudo_id IN (SELECT user_pseudo_id FROM ProductABuyers)
+  -- item.item_id can be used instead of items.item_name
+  AND items.item_name != selected_product
+GROUP BY 1
+ORDER BY item_quantity DESC;
+
+
+### 
+WITH pages AS (
+SELECT 
+    user_pseudo_id,event_name,
+    MAX(CASE WHEN key = "page_title" THEN value.string_value ELSE NULL END) AS page,
+    MAX(CASE WHEN event_name = 'page_view' and key = 'page_title' THEN value.string_value ELSE NULL END) AS pageTitle,
+    MAX (CASE WHEN params.key = "ga_session_id" THEN params.value.int_value ELSE 0 END) AS sessionId,
+    CASE WHEN event_name = "first_visit" then 1 else 0 END AS newUsers,
+    MAX((SELECT value.string_value FROM UNNEST(event_params) WHERE key = 'session_engaged')) as sessionEngaged,
+    MAX(CASE WHEN key =  "engagement_time_msec" then value.int_value else 0 END) AS engagementTimeMsec,
+    MAX(CASE WHEN event_name = "scroll" AND params.key = "percent_scrolled" THEN params.value.int_value ELSE 0 END) AS percentageScroll,
+    -- Change event_name to include any/all conversion event(s) to show the count
+    COUNTIF(event_name = 'select_content' AND key = "page_title") AS conversions,
+    SUM(ecommerce.purchase_revenue) AS totalRevenue
+FROM
+  --- Update the below dataset to match your GA4 dataset and project
+     "youtube"."tfc_test_356921_youtube_events_20210131" , UNNEST (event_params) AS params
+WHERE _table_suffix BETWEEN '20210101' AND '20210131'
+GROUP BY 
+user_pseudo_id,
+event_name),
+-- Extract engagement time,pageCount and eventCount data
+pageTop AS (
+SELECT
+  user_pseudo_id, 
+  event_date, 
+  event_timestamp, 
+  event_name, 
+  MAX(CASE WHEN event_name = 'page_view' AND params.key = "page_title" THEN params.value.string_value END) AS pageCount,
+  MAX(CASE WHEN params.key = "page_title" THEN params.value.string_value ELSE NULL END) AS page,
+  MAX(CASE WHEN params.key = "engagement_time_msec" THEN params.value.int_value/1000 ELSE 0 END) AS engagementTimeMsec
+FROM
+  --- Update the below dataset to match your GA4 dataset and project
+     "youtube"."tfc_test_356921_youtube_events_20210131" , unnest(event_params) as params
+
+WHERE _table_suffix BETWEEN '20210101' AND '20210131'
+GROUP BY user_pseudo_id, event_date, event_timestamp, event_name
+),
+--Summarize data for average engagement time, Views, Users, viewsPerUser and eventCount
+pageTopSummary AS (
+SELECT 
+  page, 
+  ROUND (SAFE_DIVIDE(SUM(engagementTimeMsec),COUNT(DISTINCT user_pseudo_id)),2) AS avgEngagementTime,
+  COUNT (pageCount) AS Views,
+  COUNT (DISTINCT user_pseudo_id) AS Users,
+  ROUND(COUNT (pageCount)/COUNT (DISTINCT user_pseudo_id),2) AS viewsPerUser
+
+FROM 
+  pageTop
+GROUP BY 
+  page)
+-- MAIN QUERY
+SELECT 
+    sub.page,
+    Views,
+    Users,
+    newUser,
+    viewsPerUser,
+    avgEngagementTime,
+    uniqueUserscrolls,
+    conversions,
+    totalRevenue
+FROM (
+SELECT 
+    page,
+    SUM (newUsers) as newUser,
+    COUNT(CASE WHEN percentageScroll = 90 THEN user_pseudo_id END) AS uniqueUserscrolls,
+    SUM(conversions) AS conversions,
+    CONCAT('$', IFNULL(SUM(totalRevenue),0)) AS totalRevenue
+FROM 
+    pages
+WHERE page IS NOT NULL
+GROUP BY 
+    page)
+-- Sub query to joining summary reports together 
+sub
+LEFT JOIN  pageTopSummary
+ON 
+  pageTopSummary.page = sub.page
+ORDER BY 
+    Users  DESC

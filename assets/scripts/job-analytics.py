@@ -52,6 +52,7 @@ analyticsfields_node1659719907216 = SelectFields.apply(
         "user_id",
         "event_name",
         "device.category",
+        "device.host_name",
         "device.mobile_brand_name",
         "device.mobile_model_name",
         "device.mobile_marketing_name",
@@ -76,7 +77,7 @@ analyticsfields_node1659719907216 = SelectFields.apply(
         "geo.city",
         "geo.sub_continent",
         "geo.metro",
-        "user_first_touch_timestamp",
+        "user_first_touch_timestamp"
     ],
     transformation_ctx="analyticsfields_node1659719907216",
 )
@@ -88,6 +89,7 @@ selectjoin_node1659721205082 = SelectFields.apply(
         "user_id",
         "event_name",
         "device.category",
+        "device.host_name",
         "device.mobile_brand_name",
         "device.mobile_model_name",
         "device.mobile_marketing_name",
