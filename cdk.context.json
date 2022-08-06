@@ -1,11 +1,11 @@
 {
     "jobname": "bigquery-analytics",
     "data_bucket_name": "bmaguir-connector-data-bigquery",
-    "table": "tfc-test-356921.youtube.events_20210131",
-    "parentProject": "tfc-test-356921",
+    "table": "gaanalytics-358212.analytics_322371309.events_intraday_",
+    "parentProject": "gaanalytics-358212",
     "connectionName": "bigquery",
-    "filter": "LIMIT 1000",
-    "jobscript": "job-ga.py",
+    "filter": "user_id='10'",
+    "jobscript": "job-analytics.py",
     "schedule": "0/10 * * * ? *",
-    "gluedatabase": "youtube"
+    "gluedatabase": "gcp_analytics"
 }

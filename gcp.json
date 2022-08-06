@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gaanalytics-358212",
+  "private_key_id": "64efb5c6d72492bd65eefd2f710dcf6e22815235",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDAEpWVIs5J7QYn\nXWeO+CNIB4C4Fm2cPanbS3BhWKP3ak6WmmnyMUaufzNdesBdpjwVWQV1ahoebWwG\nkOAZdBiK7zfMvRco8nu/HPBN2NDSv0DN3LTfuRW5ENEIkS0mCDURuGxzrRSG9m0K\nUu1xC2rialBsi5TFN6NmFF+NnpXdoBlqitMbOMdSHvaf3GosJ5c+MrJZzhnTX2AJ\nJbTj1yDFrueHrpqNCw4yJ8i0pU1TyUtgdAEeahmCY7XAVl1RlqJR59oi7R/T1+/X\nO2GXNOgqRsv8Q/9XeEDTusHs58B9aXmb8/slG1xbCgkkdDG8VrmQeRGBsE+Cnw2X\n7H88iNDtAgMBAAECggEAIbnBqSes6D8lwvi8K9b3PvkOSYSqp3IOZrKm33j0hYeV\nmA0yCDRN0GsGZmYc6/S5/ReeBUFlp60X+EktCFshyhd6CUm0jNyTDPo0Wb713+N0\nKhGUcuopXc8NnT78mf577woehOtBvPb9K4BnL9/M20fGqmCR9VUxLEXsh03uy7S4\ni08hXMsRX0lFaag3Xq2cPv6lpY4INjj+jYbtsTLTY8wk+YZta/i9zpN9gVt/D8f2\nL9Uv5eoR2MYPl27TVz8b3BhbyMaAqOUly5ig6Dxn99XvtoUChBNo542bwWNj7nbz\n7PinhWzihGM+8WIRtf3qkkkP7zgxeWo/89OwypIHgQKBgQDjv5UZfg2xLJvrLJU6\nLZ5k9gFcPwbOWezM1yxmukoS+AHXi5gc95Bx8GS4bdsc2IhVfzunyD8oKWnTgR5R\na3qtYclq+2IC5vg7xTdzkhWZ7XhyQPGfTq8g7nc1HFYbB0wgpoAkknlXvEMTNYGG\ni+KAHa5AK/HpQwEHTd0awsEtLQKBgQDX5hNgKbvF7e0Zjlwy1UIcH05owPGXIOy5\nP0Q3Dn+/pjL35jXytpbKUnCsIHWTv+qoC1itzcPQXu3XIpFFQm7HEpLaIl1gO+LV\n/ZsjYYP89H8TFAkKCgLGxwfg4kBlQCATOrFIZP8ezysVjcDYjFnT46f8dAeB/MA4\nXTjhGuoKwQKBgA5Ombo5Pfj0WXMjoNg/x2SGQ72cw/uwkHypw8NMTpz0cYEt5sdj\nEfLmbB1d4Vblj2L3lDLNFJKcT2aXBOWOf+1maDXNRvHxuoRetkYPVkYOMfPTeppM\nYhoKgPiYKByYj8K5UvF5NiA51mjdgp6GKRttQeYMHK1PpT/lN0+YDnSdAoGARRTf\nWkPAS4Ln/OdqZPGL58e0pRwnsX3dgSDXSO6gvcgGQwAsfu8hrLdYShtQw+gCw6Zt\nx58xarkVTWNILGsnWxd8WcPpMOO4n1Q4kcegHg51orskcUvmu4fv42tBw6QTH1QG\nae23HDqZxJnI/QFbtMsBc2wFAvjG4MIjcxPTk4ECgYAxb0VhkWg95kOgqfJXgClV\nzwvUxOtGVmbwKMZ9qeZ/Y1/PVQTJhe246p7nD3nKsG0Jn4P5+rQOw7no3v7BwwJV\nej7x5CkQwQNw8oDuZEqq8fLFwSYa7xNKi8cRmATwtW9E/X6JlHcnjTDSIKil2ngu\naO3PrKAY7eaGeUSsG4a+CQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigquertserviceaccount@gaanalytics-358212.iam.gserviceaccount.com",
+  "client_id": "106364162820487962171",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigquertserviceaccount%40gaanalytics-358212.iam.gserviceaccount.com"
+}
