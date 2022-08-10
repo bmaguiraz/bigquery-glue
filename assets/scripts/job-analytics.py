@@ -40,51 +40,33 @@ analyticsdata_node1659719961623 = glueContext.create_dynamic_frame.from_options(
             "table": table_full.strip(),
             "parentProject": args["parentProject"],
             "connectionName": args["connectionName"],
-            "filter": args["filter"],
+            #"filter": args["filter"],
     },
     transformation_ctx="analyticsdata_node1659719961623",
 )
 
-# Script generated for node analyticsfields
-analyticsfields_node1659719907216 = SelectFields.apply(
-    frame=analyticsdata_node1659719961623,
-    paths=[
-        "user_id",
-        "event_name",
-        "device.category",
-        "device.host_name",
-        "device.mobile_brand_name",
-        "device.mobile_model_name",
-        "device.mobile_marketing_name",
-        "device.mobile_os_hardware_model",
-        "device.operating_system",
-        "device.operating_system_version",
-        "device.vendor_id",
-        "device.advertising_id",
-        "device.language",
-        "device.is_limited_ad_tracking",
-        "device.time_zone_offset_seconds",
-        "device.browser",
-        "device.browser_version",
-        "event_date",
-        "user_pseudo_id",
-        "traffic_source.name",
-        "traffic_source.medium",
-        "traffic_source.source",
-        "geo.continent",
-        "geo.country",
-        "geo.region",
-        "geo.city",
-        "geo.sub_continent",
-        "geo.metro",
-        "user_first_touch_timestamp"
-    ],
-    transformation_ctx="analyticsfields_node1659719907216",
+# Script generated for node last-hour-filter
+SqlQuery0 = """
+select 
+cast(date_format(timestamp_micros(event_timestamp), "H") as int) 
+as event_timestamp_hour,*
+
+from myDataSource
+where 
+cast(date_format(timestamp_micros(event_timestamp), "H") as int)
+=cast(date_format(current_timestamp(), "H") as int)-1
+
+"""
+lasthourfilter_node1659881726015 = sparkSqlQuery(
+    glueContext,
+    query=SqlQuery0,
+    mapping={"myDataSource": analyticsdata_node1659719961623},
+    transformation_ctx="lasthourfilter_node1659881726015",
 )
 
 # Script generated for node select-join
 selectjoin_node1659721205082 = SelectFields.apply(
-    frame=analyticsfields_node1659719907216,
+    frame=lasthourfilter_node1659881726015,
     paths=[
         "user_id",
         "event_name",
@@ -104,6 +86,8 @@ selectjoin_node1659721205082 = SelectFields.apply(
         "device.browser",
         "device.browser_version",
         "event_date",
+        "event_timestamp",
+        "event_timestamp_hour",
         "user_pseudo_id",
         "traffic_source.name",
         "traffic_source.medium",

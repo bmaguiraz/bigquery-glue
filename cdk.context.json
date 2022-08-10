@@ -4,8 +4,9 @@
     "table": "gaanalytics-358212.analytics_322371309.events_intraday_",
     "parentProject": "gaanalytics-358212",
     "connectionName": "bigquery",
-    "filter": "user_id='10'",
+    "filter": "EXTRACT(HOUR FROM timestamp_micros(event_timestamp))= EXTRACT(HOUR FROM CURRENT_DATETIME())-1",
     "jobscript": "job-analytics.py",
-    "schedule": "0/10 * * * ? *",
+    "joinjobscript": "job-analytics-taxi.py",
+    "schedule": "0 * * * ? *",
     "gluedatabase": "gcp_analytics"
 }
